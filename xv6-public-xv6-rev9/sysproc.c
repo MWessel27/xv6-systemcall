@@ -6,6 +6,13 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+#include "spinlock.h"
+#include "uproc.h"
+
+struct {
+  struct spinlock lock;
+  struct proc proc[NPROC];
+} ptable;
 
 int
 sys_fork(void)
@@ -44,6 +51,29 @@ sys_getpid(void)
 
 int
 sys_getprocs(void){
+  int max;
+  struct uproc *p;
+  //int i=0;
+
+  if(argint(0,&max) < 0)
+    return -1;
+  
+  if(argptr(1,(char**)&p, max*sizeof(struct uproc)) < 0)
+    return -1;
+  
+  struct proc *ptr = ptable.proc;
+  acquire(&ptable.lock);
+  for(;ptr <&ptable.proc[NPROC];ptr++)
+  {
+    // cprintf("function pid: %s \n", ptr->name);
+    if(!(ptr->state == UNUSED))
+    {
+      cprintf("%s[%d] \n", ptr->name, ptr->pid);
+      continue;
+      // p[i]=ptr->name;
+      // i++;
+    }
+  }
   return 1;
 }
 
