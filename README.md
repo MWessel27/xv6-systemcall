@@ -16,7 +16,7 @@
 - To assist with executing a user program line getpid() I followed the professors YouTube video where he created mytest1.c to directly call getpid() and return the pid number.
 
 ## User Space
-1.	getpid() is executed from a user program in the userspace
+- getpid() is executed from a user program in the userspace
 ```javascript
 void
 getpid_test(void)
@@ -27,12 +27,12 @@ getpid_test(void)
   printf(1, "getpid_test = %d\n", ppid);
 }
 ```
-2.	getpid is declared in user.h
+- getpid is declared in user.h
 ```javascript
 int getpid(void);
 ```
-3.	getpid is defined in usys.S
--	SYSCALL(getpid) which expands to:
+- getpid is defined in usys.S
+- SYSCALL(getpid) which expands to:
 ```javascript
 .globl getpid;			# declares getpid as a global symbol
   getpid:			# entry point of getpid
@@ -41,11 +41,11 @@ int getpid(void);
     ret;				# return result to the caller of close
 ```
 	
-4.	$SYS_close defined in syscall.h
+- $SYS_close defined in syscall.h
 ```javascript
 #define SYS_getpid 11 
 ```
-5.	$T_SYSCALL defined in traps.h
+- $T_SYSCALL defined in traps.h
 
 ## Kernel
 -	int $T_SYSCALL; 	#triggers software interrupt
