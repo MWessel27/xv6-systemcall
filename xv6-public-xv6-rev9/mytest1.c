@@ -13,7 +13,7 @@ getpid_test(void)
 {
   int ppid;
 
-  ppid = getpid();
+  ppid = getpid();                          // mytest1.c executes getpid() in the userspace
   printf(1, "getpid_test = %d\n", ppid);
 }
 
