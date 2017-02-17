@@ -43,6 +43,11 @@ sys_getpid(void)
 }
 
 int
+sys_getprocs(void){
+  return 1;
+}
+
+int
 sys_sbrk(void)
 {
   int addr;
