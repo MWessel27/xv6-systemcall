@@ -9,5 +9,5 @@
 6. Run 'make qemu-nox' to run xv6 on linprog
 
 <p align="center">
-  <img src="./img/xv6_linprog.png" width="350"/>
+  <img src="./img/xv6_linprog.png" width="700"/>
 </p>
