@@ -81,3 +81,15 @@ Syscall Dispatch
 -	Return value saved in proc->pid;
 -	Control is returned to trap
 -	sys_getpid in sysproc.c returns the integer value of the pid
+
+# Part 3: pstree
+
+## Quickstart
+- cd into xv6 directory
+- Run the following commands:
+```javascript
+make
+make qemu-nox
+// this will start xv6, now run pstree within xv6
+$ pstree
+```
