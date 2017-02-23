@@ -92,4 +92,45 @@ make
 make qemu-nox
 // this will start xv6, now run pstree within xv6
 $ pstree
+init[0]
+  sh[4]
+    pstree[7]
+  sh[5]
+    usertests[6]
+    cat[8]
 ```
+
+## Description
+- Implement a small subset of the pstree function in xv6.
+
+## Documentation
+- Interface was declared in user.h
+```javascript
+// getprocs interface
+int getprocs(int max, struct uproc*);
+```
+
+- Struct uproc was defined and declared in uproc.h
+```javascript
+struct uproc {
+    int pid;
+    int ppid;
+    char name[16];
+};
+```
+
+- System call SYS_getprocs was declared in syscall.h
+```javascript
+#define SYS_getprocs 22
+```
+
+- Implementation of sys_getprocs was done in sysproc.c
+```javascript
+int
+sys_getprocs(void){
+.
+.
+.
+}
+```
+- Definition, declaration, and implemenation of pstree command is in pstree.c
