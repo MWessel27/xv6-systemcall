@@ -53,28 +53,30 @@ int
 sys_getprocs(void){
   int max;
   struct uproc *p;
-  //int i=0;
+  int i=0;
 
-  if(argint(0,&max) < 0)
-    return -1;
-  
-  if(argptr(1,(char**)&p, max*sizeof(struct uproc)) < 0)
-    return -1;
-  
+  //if(argint(0,&max) < 0)
+  //  return -1;
+
+  argint(0,&max);
+
+  // if(argptr(1,(char**)&p, max*sizeof(struct uproc)) < 0)
+  //   return -1;
+  argptr(1,(char**)&p, max*sizeof(struct uproc));
+
   struct proc *ptr = ptable.proc;
-  acquire(&ptable.lock);
-  for(;ptr <&ptable.proc[NPROC];ptr++)
+
+  for(; ptr < &ptable.proc[NPROC]; ptr++)
   {
-    // cprintf("function pid: %s \n", ptr->name);
     if(!(ptr->state == UNUSED))
     {
-      cprintf("%s[%d] \n", ptr->name, ptr->pid);
-      continue;
-      // p[i]=ptr->name;
-      // i++;
+      p[i].pid = ptr->pid;
+      p[i].ppid = ptr->parent->pid;
+      strncpy(p[i].name, ptr->name, 16);
+      i++;
     }
   }
-  return 1;
+  return i;
 }
 
 int

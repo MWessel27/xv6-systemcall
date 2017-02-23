@@ -7,14 +7,12 @@
 int
 main(int argc, char *argv[])
 {
-  struct uproc prs[MAXPROC];
+  struct uproc *prs = malloc(MAXPROC*sizeof(struct uproc));
   int num = getprocs(MAXPROC, prs);
-  printf(1,"num = %d\n",num);
-  printf(1,"process = %s\n", prs);
   int i=0;
-  for(; i<num;i++){
-      printf(16, prs[i].name);
+  for(; i< num; i++) {
+    printf(1, "%s[%d] \n", prs[i].name, prs[i].pid-1);
   }
-  printf(1, "pstree test starting\n");
+
   exit();
 }
