@@ -51,28 +51,37 @@ sys_getpid(void)
 
 int
 sys_getprocs(void){
+  // declare local variables for max uproc size, struct uproc, and counter
   int max;
   struct uproc *p;
   int i=0;
 
+  // if argint has trouble, return error -1
   if(argint(0,&max) < 0)
     return -1;
 
+  // if argptr for allocating struct size has trouble, return -1
   if(argptr(1,(char**)&p, max*sizeof(struct uproc)) < 0)
     return -1;
 
+  // create pointer to ptable processes
   struct proc *ptr = ptable.proc;
 
+  // loop through ptable
   for(; ptr < &ptable.proc[NPROC]; ptr++)
   {
     if(!(ptr->state == UNUSED))
     {
+      // if the process in ptable is not UNUSED, assign pid, parent pid, and name to uproc
       p[i].pid = ptr->pid;
       p[i].ppid = ptr->parent->pid;
       strncpy(p[i].name, ptr->name, 16);
+      // add 1 to the process counter
       i++;
     }
   }
+  
+  // return the number of processes that are not UNUSED
   return i;
 }
 
