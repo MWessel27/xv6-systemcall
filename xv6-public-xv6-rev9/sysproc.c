@@ -55,14 +55,11 @@ sys_getprocs(void){
   struct uproc *p;
   int i=0;
 
-  //if(argint(0,&max) < 0)
-  //  return -1;
+  if(argint(0,&max) < 0)
+    return -1;
 
-  argint(0,&max);
-
-  // if(argptr(1,(char**)&p, max*sizeof(struct uproc)) < 0)
-  //   return -1;
-  argptr(1,(char**)&p, max*sizeof(struct uproc));
+  if(argptr(1,(char**)&p, max*sizeof(struct uproc)) < 0)
+    return -1;
 
   struct proc *ptr = ptable.proc;
 
